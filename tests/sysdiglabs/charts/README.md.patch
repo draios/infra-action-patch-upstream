@@ -1,0 +1,13 @@
+diff --git a/README.md b/README.md
+index 76f23d8..03a84bd 100644
+--- a/README.md
++++ b/README.md
+@@ -47,3 +47,8 @@ You can find more information at:
+ * [The Helm package manager](https://helm.sh/)
+ * [Chart Releaser](https://github.com/helm/chart-releaser)
+ * [Chart Releaser GitHub Action](https://github.com/helm/chart-releaser-action)
++
++
++## Testing patch action
++
++This is a test

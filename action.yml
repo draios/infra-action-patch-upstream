@@ -1,0 +1,57 @@
+name: 'Checkout the x (or latest) upstream version and apply a patch'
+description: Checkout the x (or latest) upstream version and apply a patch
+inputs:
+  upstream_repo:
+    description: "The upstream repo that we want to checkout and patch"
+    required: true
+
+  upstream_ref:
+    description: "The upstream ref, can be: branch, tag, sha, if not provided last semver tag will be grabbed"
+    required: false
+
+  upstream_tag_regex:
+    description: "Regex to use while checking the last upstream versions"
+    required: false
+
+  local_patch_dir:
+    description: "Directory of the patch files, must end with .patch"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    # Only run when upstream_ref was not provided
+    - name: Check last tag in upstream repo
+      id: check_last_tag
+      uses: oprypin/find-latest-tag@v1
+      if: ${{ inputs.upstream_ref == '' }}
+      with:
+        repository: ${{ inputs.upstream_repo }}
+        regex:  ${{ inputs.upstream_tag_regex }}
+
+    - uses: actions/checkout@v2
+      name: Checkout latest version
+      if: ${{ inputs.upstream_ref == '' }}
+      with:
+        repository: ${{inputs.upstream_repo }}
+        ref: ${{ steps.check_last_tag.outputs.tag }}
+        path: 'upstream'
+
+    - uses: actions/checkout@v2
+      name: Checkout the fixed version
+      if: ${{ inputs.upstream_ref != '' }}
+      with:
+        repository: ${{inputs.upstream_repo }}
+        ref: ${{ inputs.upstream_ref }}
+        path: 'upstream'
+
+    - uses: actions/checkout@v2
+      name: Checkout local repo
+      with:
+        path: 'patch'
+
+    - name: Apply Patch files
+      shell: bash
+      env:
+        PATCHDIR: ${{ inputs.local_patch_dir }}
+      run: for p in patch/${PATCHDIR}/*.patch; do patch -d upstream/ -p1 < $p; done
