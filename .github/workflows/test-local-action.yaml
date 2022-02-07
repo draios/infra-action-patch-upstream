@@ -8,10 +8,14 @@ jobs:
        - name: Checkout
          uses: actions/checkout@v2
        - name: Test local action
+         id: local-action
          uses: ./
          with:
            upstream_repo: sysdiglabs/charts
            local_patch_dir: tests/sysdiglabs/charts
+    outputs:
+      used_tag: ${{ steps.local-action.outputs.tag }}
+      used_lates: ${{ steps.local-action.outputs.latest }}
 
    local_test_fixed:
      runs-on: ubuntu-latest
@@ -20,8 +24,12 @@ jobs:
        - name: Checkout
          uses: actions/checkout@v2
        - name: Test local action
+         id: local-action
          uses: ./
          with:
            upstream_repo: sysdiglabs/charts
            local_patch_dir: tests/sysdiglabs/charts
            upstream_ref: master
+    outputs:
+      used_tag: ${{ steps.local-action.outputs.tag }}
+      used_lates: ${{ steps.local-action.outputs.latest }}
