@@ -1,5 +1,14 @@
 name: 'Checkout the x (or latest) upstream version and apply a patch'
 description: Checkout the x (or latest) upstream version and apply a patch
+
+outputs:
+  latest:
+    description: "True/False if we used the last tag from upstream or not"
+    value: ${{ steps.check_last_tag.outputs.tag == "" }}
+  tag:
+    description: "Upstream tag ref checked out and patched"
+    value: ${{ steps.check_last_tag.outputs.tag }}
+
 inputs:
   upstream_repo:
     description: "The upstream repo that we want to checkout and patch"
