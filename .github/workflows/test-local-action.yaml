@@ -41,6 +41,6 @@ jobs:
     - run: |
         echo "local_test_lasttag: ${{ needs.local_test_lasttag.outputs.used_tag }},${{ needs.local_test_lasttag.outputs.used_latest }}"
         echo "local_test_fixed: ${{ needs.local_test_fixed.outputs.used_tag }},${{ needs.local_test_fixed.outputs.used_latest }}"
-        echo "semver_fixed: ${{ needs.local_test_fixed.outputs.major }}, ${{ needs.local_test_fixed.outputs.minor }}, ${{ needs.local_test_fixed.outputs.patch }}"
-        echo "semver_lasttag: ${{ needs.local_test_lasttag.outputs.major }}, ${{ needs.local_test_lasttag.outputs.minor }}, ${{ needs.local_test_lasttag.outputs.patch }}"
+        echo "semver_fixed: ${{ needs.local_test_fixed.outputs.tag_major }}, ${{ needs.local_test_fixed.outputs.minor }}, ${{ needs.local_test_fixed.outputs.tag_patch }}"
+        echo "semver_lasttag: ${{ needs.local_test_lasttag.outputs.tag_major }}, ${{ needs.local_test_lasttag.outputs.minor }}, ${{ needs.local_test_lasttag.outputs.tag_patch }}"
       shell: bash

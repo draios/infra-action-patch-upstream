@@ -9,10 +9,13 @@ outputs:
     description: "Upstream tag ref checked out and patched"
     value: ${{ steps.check_last_tag.outputs.tag }}
   tag_major:
+    description: "Upstream tag major semver"
     value: ${{ steps.major_minor.outputs.major }}
   tag_minor:
+    description: "Upstream tag major minor"
     value: ${{ steps.major_minor.outputs.minor }}
   tag_patch:
+    description: "Upstream tag major patch"
     value: ${{ steps.major_minor.outputs.patch }}
 
 inputs:
