@@ -9,11 +9,11 @@ outputs:
     description: "Upstream tag ref checked out and patched"
     value: ${{ steps.check_last_tag.outputs.tag }}
   tag_major:
-    value: ${{ steps.major-minor.outputs.major }}
+    value: ${{ steps.major_minor.outputs.major }}
   tag_minor:
-    value: ${{ steps.major-minor.outputs.minor }}
+    value: ${{ steps.major_minor.outputs.minor }}
   tag_patch:
-    value: ${{ steps.major-minor.outputs.patch }}
+    value: ${{ steps.major_minor.outputs.patch }}
 
 inputs:
   upstream_repo:
@@ -45,7 +45,7 @@ runs:
         regex:  ${{ inputs.upstream_tag_regex }}
 
     - name: Extract Major and minor version
-      id: major-minor
+      id: major_minor
       if: steps.check_last_tag.outcome == 'success'
       shell: bash
       env:
@@ -61,6 +61,15 @@ runs:
         echo "::set-output name=major::${v[0]}"
         echo "::set-output name=minor::${v[1]}"
         echo "::set-output name=patch::${v[2]}"
+
+    - name: test
+      if: steps.major_minor.outcome == 'success'
+      shell: bash
+      run: |
+        echo ${{ steps.major_minor.outputs.major }}
+        echo ${{ steps.major_minor.outputs.minor }}
+        echo ${{ steps.major_minor.outputs.patch }}
+
 
     - uses: actions/checkout@v2
       name: Checkout latest version
