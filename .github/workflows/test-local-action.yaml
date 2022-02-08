@@ -11,8 +11,8 @@ jobs:
          id: local-action
          uses: ./
          with:
-           upstream_repo: sysdiglabs/charts
-           local_patch_dir: tests/sysdiglabs/charts
+           upstream_repo: sysdiglabs/kube-psp-advisor
+           local_patch_dir: tests/sysdiglabs/kube-psp-advisor
      outputs:
        used_tag: ${{ steps.local-action.outputs.tag }}
        used_latest: ${{ steps.local-action.outputs.latest }}
@@ -27,8 +27,8 @@ jobs:
          id: local-action
          uses: ./
          with:
-           upstream_repo: sysdiglabs/charts
-           local_patch_dir: tests/sysdiglabs/charts
+           upstream_repo: sysdiglabs/kube-psp-advisor
+           local_patch_dir: tests/sysdiglabs/kube-psp-advisor
            upstream_ref: master
      outputs:
        used_tag: ${{ steps.local-action.outputs.tag }}
