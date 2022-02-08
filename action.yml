@@ -55,12 +55,12 @@ runs:
         # action only for semver parsing
         VERSION="${TAG//v}"
         v=( ${VERSION//./ } )
-        printf "Major is %s" ${v[0]}
-        printf "Minor is %s" ${v[1]}
-        printf "Patch is %s" ${v[2]}
+        printf "Major is %s \n" ${v[0]}
+        printf "Minor is %s \n" ${v[1]}
+        printf "Patch is %s \n" ${v[2]}
         echo "::set-output name=major::${v[0]}"
-        echo "::set-output name=minor::${v[0]}"
-        echo "::set-output name=patch::${v[0]}"
+        echo "::set-output name=minor::${v[1]}"
+        echo "::set-output name=patch::${v[2]}"
 
     - uses: actions/checkout@v2
       name: Checkout latest version
