@@ -8,6 +8,15 @@ outputs:
   tag:
     description: "Upstream tag ref checked out and patched"
     value: ${{ steps.check_last_tag.outputs.tag }}
+  tag_major:
+    description: "Upstream tag major semver"
+    value: ${{ steps.major_minor.outputs.major }}
+  tag_minor:
+    description: "Upstream tag major minor"
+    value: ${{ steps.major_minor.outputs.minor }}
+  tag_patch:
+    description: "Upstream tag major patch"
+    value: ${{ steps.major_minor.outputs.patch }}
 
 inputs:
   upstream_repo:
@@ -37,6 +46,24 @@ runs:
       with:
         repository: ${{ inputs.upstream_repo }}
         regex:  ${{ inputs.upstream_tag_regex }}
+
+    - name: Extract Major and minor version
+      id: major_minor
+      if: steps.check_last_tag.outcome == 'success'
+      shell: bash
+      env:
+        TAG: ${{ steps.check_last_tag.outputs.tag }}
+      run: |
+        # Little bash-ism to avoid use an external
+        # action only for semver parsing
+        VERSION="${TAG//v}"
+        v=( ${VERSION//./ } )
+        printf "Major is %s \n" ${v[0]}
+        printf "Minor is %s \n" ${v[1]}
+        printf "Patch is %s \n" ${v[2]}
+        echo "::set-output name=major::${v[0]}"
+        echo "::set-output name=minor::${v[1]}"
+        echo "::set-output name=patch::${v[2]}"
 
     - uses: actions/checkout@v2
       name: Checkout latest version

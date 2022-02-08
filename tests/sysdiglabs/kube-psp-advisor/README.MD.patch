@@ -1,0 +1,15 @@
+diff --git a/README.MD b/README.MD
+index 282b29c..1d07973 100644
+--- a/README.MD
++++ b/README.MD
+@@ -14,6 +14,10 @@ kubectl krew install advise-psp
+ 
+ The plugin will be available as `kubectl advise-psp`.
+ 
++## Testing patch action
++
++This is a test
++
+ ## Build and Run locally
+ 1. ```make build```
+ 2. ```./kube-psp-advisor inspect``` to generate Pod Security Policy based on running cluster configuration
