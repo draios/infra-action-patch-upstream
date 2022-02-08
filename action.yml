@@ -65,15 +65,6 @@ runs:
         echo "::set-output name=minor::${v[1]}"
         echo "::set-output name=patch::${v[2]}"
 
-    - name: test
-      if: steps.major_minor.outcome == 'success'
-      shell: bash
-      run: |
-        echo ${{ steps.major_minor.outputs.major }}
-        echo ${{ steps.major_minor.outputs.minor }}
-        echo ${{ steps.major_minor.outputs.patch }}
-
-
     - uses: actions/checkout@v2
       name: Checkout latest version
       if: ${{ inputs.upstream_ref == '' }}
