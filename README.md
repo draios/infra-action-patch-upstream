@@ -14,6 +14,12 @@ Checkout the ref (or latest) upstream version and apply one or more patch files
 - `upstream_ref`: The upstream ref, can be: branch, tag, sha, if not provided last semver tag will be grabbed automatically
 - `upstream_tag_regex`: Regex to use while checking the last upstream versions
 
+## Outputs
+
+* `latest`: True/False if we used the last tag from upstream or not
+
+* `tag`: Upstream tag ref checked out and patched
+
 ## Caveats
 
 - The action will always checkout the upstream repo under `upstream` directory.
