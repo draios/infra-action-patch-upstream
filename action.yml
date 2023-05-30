@@ -41,7 +41,7 @@ runs:
     # Only run when upstream_ref was not provided
     - name: Check last tag in upstream repo
       id: check_last_tag
-      uses: oprypin/find-latest-tag@v1
+      uses: oprypin/find-latest-tag@v1.1.1
       if: ${{ inputs.upstream_ref == '' }}
       with:
         repository: ${{ inputs.upstream_repo }}
@@ -61,11 +61,11 @@ runs:
         printf "Major is %s \n" ${v[0]}
         printf "Minor is %s \n" ${v[1]}
         printf "Patch is %s \n" ${v[2]}
-        echo "::set-output name=major::${v[0]}"
-        echo "::set-output name=minor::${v[1]}"
-        echo "::set-output name=patch::${v[2]}"
+        echo "major=${v[0]}" >> $GITHUB_OUTPUT
+        echo "minor=${v[1]}" >> $GITHUB_OUTPUT
+        echo "patch=${v[2]}" >> $GITHUB_OUTPUT
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3.5.2
       name: Checkout latest version
       if: ${{ inputs.upstream_ref == '' }}
       with:
@@ -73,7 +73,7 @@ runs:
         ref: ${{ steps.check_last_tag.outputs.tag }}
         path: 'upstream'
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3.5.2
       name: Checkout the fixed version
       if: ${{ inputs.upstream_ref != '' }}
       with:
@@ -81,7 +81,7 @@ runs:
         ref: ${{ inputs.upstream_ref }}
         path: 'upstream'
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3.5.2
       name: Checkout local repo
       with:
         path: 'patch'
