@@ -115,10 +115,10 @@ runs:
       if: ${{ inputs.upstream_copy != '' }}
       shell: bash
       run: |
-        MAPPINGS=$(echo "${{ inputs.upstream_copy }}" | tr '\n' ' ')
-        for mapping in ${MAPPINGS}; do
+        MAPPINGS=$(echo "${{ inputs.upstream_copy }}")
+        echo "${MAPPINGS}" | while read mapping; do
           SRC=$(echo "$mapping" | awk '{print $1}')
           DST=$(echo "$mapping" | awk '{print $2}')
           echo Copying from ${SRC} to ${DST}
-          cp -Rv "upstream/${SRC}/*" "${DST}/"
+          cp -Rv upstream/${SRC}/* "${DST}/"
         done
