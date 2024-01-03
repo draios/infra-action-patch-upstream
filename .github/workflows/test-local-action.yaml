@@ -76,11 +76,11 @@ jobs:
           local_patch_dir: tests/sysdiglabs/kube-psp-advisor
           upstream_ref: master
           upstream_copy: |
-            generator tests/kube-psp-advisor
+            generator tests/
       - name: Assert that files are copied
         id: test-copy
         run: |-
-          [[ -f tests/kube-psp-advisor/generator.go ]] && [[ -f tests/kube-psp-advisor/generator_test.go ]]
+          [[ -f tests/generator.go ]] && [[ -f tests/generator_test.go ]]
         shell: bash
 
   print_results:
