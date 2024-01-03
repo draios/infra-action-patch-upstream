@@ -6,7 +6,7 @@ jobs:
      name: Test local action without fixed version
      steps:
        - name: Checkout
-         uses: actions/checkout@v2
+         uses: actions/checkout@v4
        - name: Test local action
          id: local-action
          uses: ./
@@ -25,7 +25,7 @@ jobs:
      name: Test local action with fixed version
      steps:
        - name: Checkout
-         uses: actions/checkout@v2
+         uses: actions/checkout@v4
        - name: Test local action
          id: local-action
          uses: ./
@@ -45,7 +45,7 @@ jobs:
      name: Test local action with upstream_remove_files set
      steps:
        - name: Checkout
-         uses: actions/checkout@v2
+         uses: actions/checkout@v4
        - name: Test local action
          id: local-action
          uses: ./
