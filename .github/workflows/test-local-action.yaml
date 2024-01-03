@@ -40,6 +40,28 @@ jobs:
        tag_minor:  ${{ steps.local-action.outputs.tag_minor }}
        tag_patch:  ${{ steps.local-action.outputs.tag_patch }}
 
+   local_test_remove_from_upstream:
+     runs-on: ubuntu-latest
+     name: Test local action with remove_from_upstream set
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+       - name: Test local action
+         id: local-action
+         uses: ./
+         with:
+           upstream_repo: sysdiglabs/kube-psp-advisor
+           local_patch_dir: tests/sysdiglabs/kube-psp-advisor
+           upstream_ref: master
+           remove_from_upstream: |
+            version
+            comparator/comparator.go
+       - name: Assert that files are removed
+         id: test-remove
+         run: |-
+          ! [[ -f upstream/version ]] && ! [[ -f upstream/comparator/comparator.go ]]
+         shell: bash
+
    print_results:
      runs-on: ubuntu-latest
      name: Print test results
