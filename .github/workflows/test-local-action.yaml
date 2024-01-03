@@ -75,7 +75,7 @@ jobs:
           upstream_repo: sysdiglabs/kube-psp-advisor
           local_patch_dir: tests/sysdiglabs/kube-psp-advisor
           upstream_ref: master
-          upstream_copy_src: |
+          upstream_copy: |
             generator tests/kube-psp-advisor
       - name: Assert that files are copied
         id: test-copy

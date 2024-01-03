@@ -119,5 +119,6 @@ runs:
         for mapping in ${MAPPINGS}; do
           SRC=$(echo "$mapping" | awk '{print $1}')
           DST=$(echo "$mapping" | awk '{print $2}')
+          echo Copying from ${SRC} to ${DST}
           cp -Rv "upstream/${SRC}/*" "${DST}/"
         done
