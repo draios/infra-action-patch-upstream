@@ -112,7 +112,7 @@ runs:
 
     - name: Copy from upstream to chart
       id: upstream_copy
-      if: ${{ inputs.upstream_copy_src != '' && inputs.upstream_copy_dst != ''}}
+      if: ${{ inputs.upstream_copy != '' }}
       shell: bash
       run: |
         MAPPINGS=$(echo "${{ inputs.upstream_copy }}" | tr '\n' ' ')
