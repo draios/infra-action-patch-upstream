@@ -6,7 +6,7 @@ jobs:
      name: Test local action without fixed version
      steps:
        - name: Checkout
-         uses: actions/checkout@v2
+         uses: actions/checkout@v4
        - name: Test local action
          id: local-action
          uses: ./
@@ -25,7 +25,7 @@ jobs:
      name: Test local action with fixed version
      steps:
        - name: Checkout
-         uses: actions/checkout@v2
+         uses: actions/checkout@v4
        - name: Test local action
          id: local-action
          uses: ./
@@ -39,6 +39,28 @@ jobs:
        tag_major:  ${{ steps.local-action.outputs.tag_major }}
        tag_minor:  ${{ steps.local-action.outputs.tag_minor }}
        tag_patch:  ${{ steps.local-action.outputs.tag_patch }}
+
+   local_test_upstream_remove_files:
+     runs-on: ubuntu-latest
+     name: Test local action with upstream_remove_files set
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v4
+       - name: Test local action
+         id: local-action
+         uses: ./
+         with:
+           upstream_repo: sysdiglabs/kube-psp-advisor
+           local_patch_dir: tests/sysdiglabs/kube-psp-advisor
+           upstream_ref: master
+           upstream_remove_files: |
+            version
+            comparator/comparator.go
+       - name: Assert that files are removed
+         id: test-remove
+         run: |-
+          ! [[ -f upstream/version ]] && ! [[ -f upstream/comparator/comparator.go ]]
+         shell: bash
 
    print_results:
      runs-on: ubuntu-latest

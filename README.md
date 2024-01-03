@@ -13,6 +13,7 @@ Checkout the ref (or latest) upstream version and apply one or more patch files
 
 - `upstream_ref`: The upstream ref, can be: branch, tag, sha, if not provided last semver tag will be grabbed automatically
 - `upstream_tag_regex`: Regex to use while checking the last upstream versions
+- `upstream_remove_files`: Line separated list of files to remove from upstream repository
 
 ## Outputs
 
