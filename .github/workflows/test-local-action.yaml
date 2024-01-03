@@ -42,7 +42,7 @@ jobs:
 
    local_test_upstream_remove_files:
      runs-on: ubuntu-latest
-     name: Test local action with remove_from_upstream set
+     name: Test local action with upstream_remove_files set
      steps:
        - name: Checkout
          uses: actions/checkout@v2
