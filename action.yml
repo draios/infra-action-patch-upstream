@@ -39,6 +39,10 @@ inputs:
     description: "Line separated list of files to remove from upstream repository"
     required: false
 
+  upstream_copy:
+    description: "Line separated pair of source directory from upstream and destinations"
+    required: false
+
 runs:
   using: "composite"
   steps:
@@ -104,4 +108,16 @@ runs:
         FILES=$(echo "${{ inputs.upstream_remove_files }}" | tr '\n' ' ')
         for file in ${FILES}; do
           [[ -f "upstream/${file}" ]] && rm -v "upstream/${file}" || true
+        done
+
+    - name: Copy from upstream to chart
+      id: upstream_copy
+      if: ${{ inputs.upstream_copy_src != '' && inputs.upstream_copy_dst != ''}}
+      shell: bash
+      run: |
+        MAPPINGS=$(echo "${{ inputs.upstream_copy }}" | tr '\n' ' ')
+        for mapping in ${MAPPINGS}; do
+          SRC=$(echo "$mapping" | awk '{print $1}')
+          DST=$(echo "$mapping" | awk '{print $2}')
+          cp -Rv "upstream/${SRC}/*" "${DST}/"
         done
