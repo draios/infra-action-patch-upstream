@@ -35,7 +35,7 @@ inputs:
     description: "Directory of the patch files, must end with .patch"
     required: true
 
-  remove_from_upstream:
+  upstream_remove_files:
     description: "Line separated list of files to remove from upstream repository"
     required: false
 
@@ -97,11 +97,11 @@ runs:
       run: for p in patch/${PATCHDIR}/*.patch; do patch -d upstream/ -p1 < $p; done
 
     - name: Remove from upstream
-      id: remove_from_upstream
-      if: ${{ inputs.remove_from_upstream != '' }}
+      id: upstream_remove_files
+      if: ${{ inputs.upstream_remove_files != '' }}
       shell: bash
       run: |
-        FILES=$(echo "${{ inputs.remove_from_upstream }}" | tr '\n' ' ')
+        FILES=$(echo "${{ inputs.upstream_remove_files }}" | tr '\n' ' ')
         for file in ${FILES}; do
           [[ -f "upstream/${file}" ]] && rm -v "upstream/${file}" || true
         done
