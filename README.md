@@ -14,7 +14,7 @@ Checkout the ref (or latest) upstream version and apply one or more patch files
 - `upstream_ref`: The upstream ref, can be: branch, tag, sha, if not provided last semver tag will be grabbed automatically.
 - `upstream_tag_regex`: Regex to use while checking the last upstream versions.
 - `upstream_remove_files`: Line separated list of files to remove from upstream repository.
-- `upstream_copy`: Line separated pair of source directory from upstream and destinations. The fields are passed as is to the cp command.
+- `upstream_copy`: Line separated pair of source directory from upstream repository and destinations. The fields are passed as is to the cp command.
 
 ## Outputs
 
@@ -28,7 +28,7 @@ Checkout the ref (or latest) upstream version and apply one or more patch files
 
 ## Example workflow
 
-Perform all checks on pull requests
+Patch files from upstream repository
 
 ```yaml
 jobs:
@@ -41,7 +41,7 @@ jobs:
         upstream_ref: master
 ```
 
-Perform all checks on pull requests and remove files from the upstream repository
+Patch files from upstream repository and remove some not needed files
 
 ```yaml
 jobs:
@@ -57,7 +57,7 @@ jobs:
           scripts/cluster-scanner/generate_kubeconfig.sh
 ```
 
-Perform all checks on pull requests and copy some files from the upstream repository to a custom location
+Patch files from upstream repository and copy files to custom locations
 
 ```yaml
 jobs:
