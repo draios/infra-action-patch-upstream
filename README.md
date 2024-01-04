@@ -46,7 +46,6 @@ Perform all checks on pull requests and remove files from the upstream repositor
 ```yaml
 jobs:
   build:
-    runs-on: self-hosted
     steps:
     - uses: draios/infra-action-patch-upstream@v0.0.6
       with:
@@ -63,7 +62,6 @@ Perform all checks on pull requests and copy some files from the upstream reposi
 ```yaml
 jobs:
   build:
-    runs-on: self-hosted
     steps:
     - uses: draios/infra-action-patch-upstream@v0.0.6
       with:
