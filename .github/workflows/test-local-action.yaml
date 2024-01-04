@@ -40,6 +40,18 @@ jobs:
       tag_minor:  ${{ steps.local-action.outputs.tag_minor }}
       tag_patch:  ${{ steps.local-action.outputs.tag_patch }}
 
+  print_results:
+    runs-on: ubuntu-latest
+    name: Print test results
+    needs: [local_test_lasttag, local_test_fixed]
+    steps:
+    - run: |
+        echo "local_test_lasttag: ${{ needs.local_test_lasttag.outputs.used_tag }},${{ needs.local_test_lasttag.outputs.used_latest }}"
+        echo "local_test_fixed: ${{ needs.local_test_fixed.outputs.used_tag }},${{ needs.local_test_fixed.outputs.used_latest }}"
+        echo "semver_fixed: ${{ needs.local_test_fixed.outputs.tag_major }}, ${{ needs.local_test_fixed.outputs.tag_minor }}, ${{ needs.local_test_fixed.outputs.tag_patch }}"
+        echo "semver_lasttag: ${{ needs.local_test_lasttag.outputs.tag_major }}, ${{ needs.local_test_lasttag.outputs.tag_minor }}, ${{ needs.local_test_lasttag.outputs.tag_patch }}"
+      shell: bash
+
   local_test_upstream_remove_files:
     runs-on: ubuntu-latest
     name: Test local action with upstream_remove_files set
@@ -76,21 +88,9 @@ jobs:
           local_patch_dir: tests/sysdiglabs/kube-psp-advisor
           upstream_ref: master
           upstream_copy: |
-            generator tests/
+            generator/* tests/
       - name: Assert that files are copied
         id: test-copy
         run: |-
           [[ -f tests/generator.go ]] && [[ -f tests/generator_test.go ]]
         shell: bash
-
-  print_results:
-    runs-on: ubuntu-latest
-    name: Print test results
-    needs: [local_test_lasttag, local_test_fixed]
-    steps:
-    - run: |
-        echo "local_test_lasttag: ${{ needs.local_test_lasttag.outputs.used_tag }},${{ needs.local_test_lasttag.outputs.used_latest }}"
-        echo "local_test_fixed: ${{ needs.local_test_fixed.outputs.used_tag }},${{ needs.local_test_fixed.outputs.used_latest }}"
-        echo "semver_fixed: ${{ needs.local_test_fixed.outputs.tag_major }}, ${{ needs.local_test_fixed.outputs.tag_minor }}, ${{ needs.local_test_fixed.outputs.tag_patch }}"
-        echo "semver_lasttag: ${{ needs.local_test_lasttag.outputs.tag_major }}, ${{ needs.local_test_lasttag.outputs.tag_minor }}, ${{ needs.local_test_lasttag.outputs.tag_patch }}"
-      shell: bash
