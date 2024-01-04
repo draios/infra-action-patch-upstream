@@ -31,18 +31,10 @@ Checkout the ref (or latest) upstream version and apply one or more patch files
 Perform all checks on pull requests
 
 ```yaml
-name: Checkout and Patch
-
-on:
-  pull_request:
-    types: [opened, edited, synchronize, reopened]
-    paths:
-      - 'containers/**'
 jobs:
   build:
-    runs-on: self-hosted
     steps:
-    - uses: draios/infra-action-patch-upstream@v1
+    - uses: draios/infra-action-patch-upstream@v0.0.6
       with:
         upstream_repo: sysdiglabs/charts
         local_patch_dir: tests/sysdiglabs/charts
@@ -52,18 +44,11 @@ jobs:
 Perform all checks on pull requests and remove files from the upstream repository
 
 ```yaml
-name: Checkout and Patch
-
-on:
-  pull_request:
-    types: [opened, edited, synchronize, reopened]
-    paths:
-      - 'containers/**'
 jobs:
   build:
     runs-on: self-hosted
     steps:
-    - uses: draios/infra-action-patch-upstream@v1
+    - uses: draios/infra-action-patch-upstream@v0.0.6
       with:
         upstream_repo: sysdiglabs/charts
         local_patch_dir: tests/sysdiglabs/charts
@@ -76,18 +61,11 @@ jobs:
 Perform all checks on pull requests and copy some files from the upstream repository to a custom location
 
 ```yaml
-name: Checkout and Patch
-
-on:
-  pull_request:
-    types: [opened, edited, synchronize, reopened]
-    paths:
-      - 'containers/**'
 jobs:
   build:
     runs-on: self-hosted
     steps:
-    - uses: draios/infra-action-patch-upstream@v1
+    - uses: draios/infra-action-patch-upstream@v0.0.6
       with:
         upstream_repo: sysdiglabs/charts
         local_patch_dir: tests/sysdiglabs/charts
