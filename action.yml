@@ -40,7 +40,7 @@ inputs:
     required: false
 
   upstream_copy:
-    description: "Line separated pair of source directory from upstream and destinations"
+    description: "Line separated pair of source directory from upstream and destinations. The fields are passed as is to the cp command"
     required: false
 
 runs:

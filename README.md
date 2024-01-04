@@ -11,10 +11,10 @@ Checkout the ref (or latest) upstream version and apply one or more patch files
 
 ### Optional
 
-- `upstream_ref`: The upstream ref, can be: branch, tag, sha, if not provided last semver tag will be grabbed automatically
-- `upstream_tag_regex`: Regex to use while checking the last upstream versions
-- `upstream_remove_files`: Line separated list of files to remove from upstream repository
-- `upstream_copy`: Line separated pair of source directory from upstream and destinations
+- `upstream_ref`: The upstream ref, can be: branch, tag, sha, if not provided last semver tag will be grabbed automatically.
+- `upstream_tag_regex`: Regex to use while checking the last upstream versions.
+- `upstream_remove_files`: Line separated list of files to remove from upstream repository.
+- `upstream_copy`: Line separated pair of source directory from upstream and destinations. The fields are passed as is to the cp command.
 
 ## Outputs
 
@@ -71,4 +71,27 @@ jobs:
         upstream_remove_files: |
           scripts/cluster-scanner/README.md
           scripts/cluster-scanner/generate_kubeconfig.sh
+```
+
+Perform all checks on pull requests and copy some files from the upstream repository to a custom location
+
+```yaml
+name: Checkout and Patch
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    paths:
+      - 'containers/**'
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: draios/infra-action-patch-upstream@v1
+      with:
+        upstream_repo: sysdiglabs/charts
+        local_patch_dir: tests/sysdiglabs/charts
+        upstream_ref: master
+        upstream_copy: |
+          scripts/cluster-scanner/* k8s/
 ```
