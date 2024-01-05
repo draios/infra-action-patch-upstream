@@ -73,7 +73,7 @@ runs:
         echo "minor=${v[1]}" >> $GITHUB_OUTPUT
         echo "patch=${v[2]}" >> $GITHUB_OUTPUT
 
-    - uses: actions/checkout@v3.5.2
+    - uses: actions/checkout@v4.1.1
       name: Checkout latest version
       if: ${{ inputs.upstream_ref == '' }}
       with:
@@ -81,7 +81,7 @@ runs:
         ref: ${{ steps.check_last_tag.outputs.tag }}
         path: 'upstream'
 
-    - uses: actions/checkout@v3.5.2
+    - uses: actions/checkout@v4.1.1
       name: Checkout the fixed version
       if: ${{ inputs.upstream_ref != '' }}
       with:
@@ -89,7 +89,7 @@ runs:
         ref: ${{ inputs.upstream_ref }}
         path: 'upstream'
 
-    - uses: actions/checkout@v3.5.2
+    - uses: actions/checkout@v4.1.1
       name: Checkout local repo
       with:
         path: 'patch'
