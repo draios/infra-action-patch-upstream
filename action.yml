@@ -49,7 +49,7 @@ runs:
     # Only run when upstream_ref was not provided
     - name: Check last tag in upstream repo
       id: check_last_tag
-      uses: oprypin/find-latest-tag@v1.1.1
+      uses: oprypin/find-latest-tag@v1.1.2
       if: ${{ inputs.upstream_ref == '' }}
       with:
         repository: ${{ inputs.upstream_repo }}
